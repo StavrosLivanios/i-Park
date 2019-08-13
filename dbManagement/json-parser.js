@@ -36,6 +36,7 @@ module.exports.parserdb =  function parserdb(parsedXmlFile, callback) {
             return;
         }
 
+
         folder.Placemark.forEach(function (placemark) {
             const population = placemark.population;
             const demandType = 3; //todo: MUST add a property code in demand type table in order to find out the default demand type by making a query
