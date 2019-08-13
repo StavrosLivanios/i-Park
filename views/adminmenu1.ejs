@@ -1,0 +1,24 @@
+<html>
+<body>
+<div class="btn-group">
+
+    <form action="/admin/menu/1/upload"
+          method="get">
+        <input type="submit" value="Ανέβασε αρχείο kml" />
+    </form>
+
+    <form >
+        <button type="button" onclick="myFunction()">Διαγραφή</button>
+    </form>
+
+</div>
+</body>
+<script>
+    function myFunction() {
+        if (confirm('Are you sure you want to delete the db rows?')) {
+            window.location.replace("http://localhost:3500/delete");
+        } else {
+           // windows.location.replace("localhost:3500/delete");
+        }    }
+</script>
+</html>

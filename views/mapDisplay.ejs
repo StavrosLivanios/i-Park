@@ -1,0 +1,108 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+            integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+            crossorigin=""></script>
+
+    <script>
+        $(document).ready(function() {
+            // process the form
+            $(document).on("submit", function(event) {
+                event.preventDefault();
+                // get the form data
+                // there are many ways to get this data using jQuery (you can use the class or id also)
+                const formData = {
+                    'parkslots': $('input[name=parkingslots]').val(),
+                    'demandtype_id': $('select[name=demandtype]').val()
+                };
+                const polygonId = $('input[name=polygonId]').val()
+
+
+                // process the form
+                $.ajax({
+                    type: 'patch',
+                    url: `http://localhost:3500/polygons/${polygonId}`,
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    crossDomain: true,
+                    data: JSON.stringify(formData),
+                    dataType: 'json'
+                })
+                    .done(function(response) {
+
+                        // log data to the console so we can see
+                        console.log(response);
+
+                        // here we will handle errors and validation messages
+                    })
+                    .fail(function(response) {
+                        console.log("error");
+                        console.log(response);
+                    });
+                mymap.closePopup();
+
+            });
+        });
+    </script>
+
+</head>
+<body>
+<h1>This is a Heading</h1>
+<div id="mapid" style=" width: 400px;    height: 400px; "></div>
+
+<script >
+    var mymap = L.map('mapid').setView([ 38.2597, 21.7536], 13);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicHp5Z291cmFzIiwiYSI6ImNqeWp0b3dudjAzNHIzbXQ1bDd6Y3JnZDEifQ.dXRp-_TOF_JjD_snQSZPAw', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'your.mapbox.access.token'
+    }).addTo(mymap);
+
+    var popup = L.popup();
+    var leafPolygons = <%- JSON.stringify(leafPolygons) %>
+    var poly=[];
+    leafPolygons.forEach(function (polygon) {
+
+        poly.push(L.polygon(polygon.coords, {color: polygon.color ,customProps: {...polygon}}).addTo(mymap));
+
+
+    })
+
+    poly.forEach(function (polygon) {
+
+        polygon.on('click', function (ev){
+            popup
+                .setLatLng(ev.latlng)
+                .setContent(
+                   "<form  id=\"patchForm\"> " +
+
+                    "Θέσεις Πάρκινγκ:<br>\n" +
+                    "  <input name=\"parkingslots\" type=\"text\" id=\"parkingslot\" value=\"\" >\n" +
+                    "  <br> " +
+                        "  <input name=\"polygonId\" type=\"hidden\" value=\"" + ev.target.options.customProps.id + "\">\n"+
+                    "Καμπύλη ζήτησης:" +
+                    "  <select name=\"demandtype\">"+
+                   "<option name=\"center\" value=\"1\">Κέντρο</option>\n" +
+               "<option name=\"outskirts\" value=\"2\">Υπόλοιπη Πόλη</option>\n" +
+              "</select><br>\n"  +
+                    "  <input type=\"submit\" value=\"Submit\">\n"+
+
+                    " </form>"
+
+        ).openOn(mymap);
+
+
+         //   alert(polygon.options.customProps.id); // ev is an event object (MouseEvent in this case)
+        });
+
+    })
+
+</script>
+</body>
+</html>

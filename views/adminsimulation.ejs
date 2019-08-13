@@ -1,0 +1,75 @@
+<html lang = "en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+
+        $(document).ready(function() {
+            // process the form
+            var totalminutes =0;
+            $('#minuteClick').on("submit", function(event) {
+                event.preventDefault();
+
+                var minutes = parseInt(document.getElementById("min").value);
+                 totalminutes = parseInt(minutes)+parseInt(totalminutes);
+            });
+
+            $('#simulation').on("submit", function(event) {
+                event.preventDefault();
+                // get the form data
+                var minutes = document.getElementById("min").value;
+                    var x = document.getElementById("myText").value;
+                    var res = x.slice(0, 2);
+                    res=parseInt(res);
+
+                    const formData = {
+                        'time':res,
+                        'minute':totalminutes
+                    };
+
+
+                    // process the form
+                    $.ajax({
+                        type: 'post',
+                        url: `http://localhost:3500/adminsimulation`,
+                        headers: {
+                            'Content-Type':'application/json'
+                        },
+                        crossDomain: true,
+                        data: JSON.stringify(formData),
+                        dataType: 'json'
+                    })
+                        .done(function(response) {
+
+                            // log data to the console so we can see
+                            console.log(response);
+
+                            // here we will handle errors and validation messages
+                        })
+                        .fail(function(response) {
+                            console.log("error");
+                            console.log(response);
+                        });
+
+
+
+
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+<form id="simulation">
+    <input id="myText" type="number" min="0" max="23" placeholder="23" value="">:
+    <input type="number" min="0" max="59" placeholder="00">
+    <input id="simClick" type="submit" value="Έναρξη εξομοίωσης" >
+</form>
+<form id="minuteClick">
+    <input id="min" type="number" min="1" max="60" placeholder="" value="">
+    <input id="minuteClick" type="submit" value="Μεταβολή λεπτών" >
+</form>
+
+</body>
+</html>
