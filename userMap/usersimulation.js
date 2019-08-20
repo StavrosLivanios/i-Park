@@ -1,7 +1,6 @@
 const jsonfile = require('jsonfile')
 
 module.exports.userpolsimulation =  function userpolsimulation(req,res) {
-
     const demandtime =req.body.time;
     //Validate req.body
     if(

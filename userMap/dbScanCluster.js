@@ -70,8 +70,8 @@ module.exports.scan = function scan(req,res) {
                     for (let i = 0 ; i < leafPolygon.freeslots ; i++){
 
                         const P = {
-                            latitude: req.body.coordy,
-                            longitude: req.body.coordx
+                            latitude: leafPolygon.centroid[0][1],
+                            longitude: leafPolygon.centroid[0][0]
                         };
 
                         const R = 50; // meters
@@ -140,18 +140,7 @@ module.exports.scan = function scan(req,res) {
             }
 
             console.log(center);
-            // var objs = temppoly.map(function(x) {
-            //     return {
-            //         longitude: x[0],
-            //         latitude: x[1]
-            //
-            //     };
-            // });
-            // console.log(objs);
 
-           //  var center =[];
-           //  center.push(geolib.getCenter(objs));
-           // console.log(center);
             res.json(center);
 
         })

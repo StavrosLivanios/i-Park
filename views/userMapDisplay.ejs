@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
           crossorigin=""/>
@@ -13,6 +14,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
+        var markers = [] ;
         $(document).ready(function() {
             // process the form
 
@@ -27,7 +29,7 @@
 
             $.ajax({
                 type: 'post',
-                url: `http://localhost:3500/usersimulation`,
+                url: `/usersimulation`,
                 headers: {
                     'Content-Type':'application/json'
                 },
@@ -47,6 +49,130 @@
                     console.log(response);
                 });
 
+            $('#simulation').on("submit", function(event) {
+                event.preventDefault();
+                // get the form data
+                var x = document.getElementById("myText").value;
+                var res = x.slice(0, 2);
+                res=parseInt(res);
+
+                const formData = {
+                    'time':res,
+                    simconfirm:true
+                };
+
+
+                // process the form
+                $.ajax({
+                    type: 'post',
+                    url: `/usersimulation`,
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    crossDomain: true,
+                    data: JSON.stringify(formData),
+                    dataType: 'json'
+                })
+                    .done(function(response) {
+
+                       // mymap.removeLayer(poly);
+                        // var poly=[];
+                        //
+                        var count=0;
+                        mymap.eachLayer(function (layer) {
+                            if(count!=0) {
+                                mymap.removeLayer(layer)
+                            }
+                            count++;
+                        });
+
+
+                       // console.log(poly);
+
+                       // var leafPolygons = JSON.stringify(response.data) ;
+                       // console.log(response);
+                        response.forEach(function (polygon) {
+                            poly=L.polygon(polygon.coords, {color: polygon.color ,customProps: {...polygon}}).addTo(mymap);
+
+
+                        })
+
+                        // log data to the console so we can see
+                        // console.log(response);
+
+                        // here we will handle errors and validation messages
+                    })
+                    .fail(function(response) {
+                        console.log("error");
+                        console.log(response);
+                    });
+
+            });
+            $(document).on("submit", function(event) {
+                event.preventDefault();
+                // get the form data
+                var x = document.getElementById("myTime").value;
+                var res = x.slice(0, 2);
+                res=parseInt(res);
+                var  radius = document.getElementById("dbRadius").value;
+                var coordX = $('input[name=coordsx]').val();
+                var coordY = $('input[name=coordsy]').val();
+
+
+                const formData = {
+                    "coordx":coordX,
+                    "coordy":coordY,
+                    "parktime": res,
+                    "blockradius":radius
+                };
+
+
+                // process the form
+                $.ajax({
+                    type: 'post',
+                    url: `/dbScan`,
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    crossDomain: true,
+                    data: JSON.stringify(formData),
+                    dataType: 'json'
+                })
+                    .done(function(response) {
+                        console.log(response);
+
+                        var greenIcon = L.icon({
+                            iconUrl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png',
+                           // shadowUrl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png',
+
+                            iconSize:     [38, 45], // size of the icon
+                           // shadowSize:   [50, 64], // size of the shadow
+                            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                            //shadowAnchor: [4, 62],  // the same for the shadow
+                            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                        });
+
+
+                        var point=  L.marker([coordX, coordY], {icon: greenIcon});//.addTo(mymap);
+
+                        mymap.removeLayer(markers);
+                        var marker=[];
+                        var count= response.length;
+                        for (var i=0;i<count;i++) {
+                        marker.push(L.marker([response[i][0].longitude, response[i][0].latitude]));
+
+                        }
+                        marker.push(point);
+                                markers = L.layerGroup(marker).addTo(mymap);
+
+                    })
+                    .fail(function(response) {
+                        console.log("error");
+                        console.log(response);
+                    });
+
+            });
+
         });
     </script>
 
@@ -64,7 +190,7 @@
              width: 49%;
          }
         #ca{
-            height:30%;
+            height:auto;
             width: 49%;
         }
 
@@ -81,12 +207,12 @@
         <!-- Modal content-->
         <div id="ca" class="modal-content">
             <div class="modal-body">
-                <form>
+                <form id="simulation">
                     <input id="myText" type="number" min="0" max="23" placeholder="23" value="">:
                     <input type="number" min="0" max="59" placeholder="00">
                     <input id="simClick" type="submit" value="Έναρξη εξομοίωσης" >
                 </form>
-             </div>
+            </div>
             <div >
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
@@ -94,7 +220,34 @@
 
     </div>
 </div>
+<div id="myModal2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div id="ca" class="modal-content">
+            <div class="modal-body">
+                <form id="simulation">
+                    <div class="form-group">
+                        <label for="dbscan time">Ώρα Πάρκινγκ</label>
+                        <br>
+                        <input id="myText" type="number" min="0" max="23" placeholder="10" value="">:
+                        <input type="number" min="0" max="59" placeholder="00">
+                    </div>
+                    <div class="form-group">
+                        <label for="dbscan radius">Ακτίνα</label>
+                        <input type="number" min="0"  placeholder="100">
+                    </div>
+
+                    <input id="simClick" type="submit" value="Έναρξη εύρεσης">
+                </form>
+            </div>
+            <div >
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -119,7 +272,7 @@
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ώρα Εξομοίωσης</button>
         </div>
         <div class="col-sm-6">
-           <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Εύρεση Θέσης Πάρκινγκ</button>
+           <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">Εύρεση Θέσης Πάρκινγκ</button>
         </div>
 
     </div>
@@ -142,14 +295,43 @@
         accessToken: 'your.mapbox.access.token'
     }).addTo(mymap);
 
+
     var leafPolygons =<%- JSON.stringify(leafPolygons) %>
     var poly=[];
-    var circles=[];
+
     leafPolygons.forEach(function (polygon) {
         poly.push(L.polygon(polygon.coords, {color: polygon.color ,customProps: {...polygon}}).addTo(mymap));
 
 
     })
+    var popup = L.popup();
+
+
+    mymap.on('click', function (ev){
+        popup
+            .setLatLng(ev.latlng)
+            .setContent(
+                "<form id=\"dbScan\">"+
+                "  <input name=\"coordsx\" type=\"hidden\" value=\"" + ev.latlng.lat + "\">\n"+
+                "  <input name=\"coordsy\" type=\"hidden\" value=\"" + ev.latlng.lng + "\">\n"+
+
+                "<div class=\"form-group\">\n" +
+                    "<label for=\"dbscan time\">Ώρα Πάρκινγκ:</label>"+
+                     "<input id=\"myTime\" type=\"number\" min=\"0\" max=\"23\" placeholder=\"10\" value=\"\">"+
+                     "<input type=\"number\" min=\"0\" max=\"59\" placeholder=\"00\">\n"+
+                "</div>"+
+                "<div class=\"form-group\">"+
+                    "<label for=\"dbscan radius\">Ακτίνα</label>"+
+                     "<input id=\"dbRadius\" type=\"number\" min=\"0\"  placeholder=\"100\">"+
+                "</div>"+
+
+                "<input id=\"dbclick\" type=\"submit\" value=\"Έναρξη εύρεσης\">"+
+                "</form>"
+    ).openOn(mymap);
+
+
+        //  alert(ev.latlng); // ev is an event object (MouseEvent in this case)
+    });
 
 
 

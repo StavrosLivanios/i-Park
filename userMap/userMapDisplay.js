@@ -3,6 +3,7 @@ const polygons =  require('./usersimulation.js');
 const axios = require('axios');
 
 module.exports.userDisplayMap =  function userDisplayMap(req,res) {
+
     const currentDate = new Date();
     axios.post("http://localhost:3500/usersimulation", {
         time: currentDate.getHours()
