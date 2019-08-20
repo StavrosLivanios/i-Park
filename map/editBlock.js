@@ -72,7 +72,7 @@ module.exports.blockEdit =  function blockEdit(req,res) {
             dbconnect.query(selectSqlQuery, parid, function (err, result) {
                 if(err) throw err;
 
-a            });
+            });
         });
     });
 };
