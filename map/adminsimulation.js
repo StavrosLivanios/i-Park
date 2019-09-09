@@ -88,8 +88,15 @@ module.exports.polsimulation =  function polsimulation(req,res) {
             jsonfile.writeFile(file, leafPolygons, function (err) {
                 if (err) console.error(err)
             });
-            res.json(leafPolygons);
-        });
+            if (req.session.loggedin) {
+                res.json(leafPolygons);
+                res.end();
+
+            } else {
+                res.send('Please login to view this page!');
+                res.end();
+
+            }        });
 
 
 });

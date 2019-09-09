@@ -22,7 +22,6 @@ module.exports.userDisplayMap =  function userDisplayMap(req,res) {
                     if(response.status !== 200){
                         throw new Error("failed")
                     }
-
                     res.render("userMapDisplay", {leafPolygons: response.data});
 
                 })

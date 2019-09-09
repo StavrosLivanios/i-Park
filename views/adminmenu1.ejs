@@ -1,17 +1,33 @@
 <html>
-<body>
-<div class="btn-group">
+<%include ../partials/header.ejs%>
+<style>
+    body{
+        background: url('https://media.wired.com/photos/5926b773f3e2356fd800a373/master/w_2130,c_limit/WarOnParking_TA_GettyImages-83314262.png') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        -o-background-size: cover;
+    }
+    .container{
+        position relative;
+    }
+    form{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+</style>
+<body >
+    <div class="container centered">
 
-    <form action="/admin/menu/1/upload"
-          method="get">
+     <form action="/admin/menu/1/upload" method="get">
         <input type="submit" value="Ανέβασε αρχείο kml" />
-    </form>
 
-    <form >
         <button type="button" onclick="myFunction()">Διαγραφή</button>
-    </form>
+        </form>
 
-</div>
+    </div>
 </body>
 <script>
     function myFunction() {
