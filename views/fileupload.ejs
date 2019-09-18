@@ -1,12 +1,20 @@
 <html>
+<%include ../partials/bgimage.ejs%>
+<%include ../partials/header.ejs%>
+<style>
+
+
+</style>
 <body>
 <form ref='uploadForm'
       id='uploadForm'
       action='/upload'
       method='post'
       encType="multipart/form-data">
-    <input type="file" name="sampleFile" />
-    <input type='submit' value='Φόρτωσε!' />
+    <input type="file" class="btn  btn-block " name="sampleFile" />
+    <input type='submit'  class="btn btn-light btn-lg  btn-block btn-outline-primary" value='Φόρτωσε!' />
 </form>
+
+
 </body>
 </html>

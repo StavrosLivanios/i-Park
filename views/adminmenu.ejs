@@ -1,6 +1,30 @@
 <html>
 <%include ../partials/header.ejs%>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <body>
+<div class=" aaa  align-middle container text-center">
+    <form id="simulation">
+        <div class="form-row align-items-center">
+            <div class="col-xs-2">
+                <input id="myText" class="form-control "  type="number" min="0" max="23" placeholder="23" value="">
+            </div>
+            <div class="col-xs-2">
+                <input type="number" id="minutes" class="form-control " min="0" max="59" placeholder="00">
+            </div>
+            <div class="col-auto">
+                <input id="simClick" type="submit" class="btn btn-light btn-lg  btn-block btn-outline-primary" value="Έναρξη εξομοίωσης" >
+            </div>
+        </div>
+    </form>
 
+    <form id="minuteClick">
+        <div class="input-group">
+            <input id="min" type="number" min="1" max="60" placeholder="" value="">
+            <input id="minuteClick" type="submit" class="btn btn-light btn-lg  btn-block btn-outline-primary" value="Μεταβολή λεπτών" >
+        </div>
+
+    </form>
 </body>
 </html>
