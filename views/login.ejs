@@ -1,13 +1,51 @@
 <html>
 <%include ../partials/bgimage.ejs%>
+<%include ../partials/footer.ejs%>
+
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!--<script>-->
+    <!--function myFunction() {-->
+        <!--alert("Hello! I am an alert box!");-->
+    <!--}-->
 
+    <!--$(document).ready(function() {-->
+        <!--$('#log').on("submit", function(event) {-->
+            <!--event.preventDefault();-->
+            <!--$.ajax({-->
+            <!--type: 'post',-->
+                <!--url: `http://localhost:3500/login`,-->
+                <!--headers: {-->
+                <!--'Content-Type':'application/json'-->
+            <!--},-->
+            <!--crossDomain: true,-->
+                <!--data: JSON.stringify(formData),-->
+                <!--dataType: 'json'-->
+        <!--})-->
+                <!--.fail(function(response) {-->
+                        <!--if (error.responseText == 'showAlert') {-->
+                            <!--alert("Please enter correct user name and password.");-->
+                            <!--success:  (result) => {-->
+                                <!--if (result.responseText == 'showAlert') {-->
+                                    <!--alert("There was an error");-->
+                                <!--} else {-->
+                                    <!--//Do things...-->
+                                <!--}-->
+                            <!--}-->
+                        <!--}-->
+                    <!--}-->
+
+        <!--});-->
+    <!--});-->
+<!--</script>-->
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <title>Login Form Tutorial</title>
+    <title>i-Park</title>
     <style>
         .login-form {
             width: 300px;
@@ -38,12 +76,70 @@
             font-weight: bold;
             color: #ffffff;
         }
+
+        label {
+            background-color: #535b63;
+        }
+
+
+        form {
+            border-radius:5px ;
+            padding: 30px ;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .navbar-custom a {
+            color: #fff;
+        }
+        .navbar-custom{
+            background-color: #00695c;
+            border-color: #4d4d4d;
+            height:  25px;
+            border:0px;
+
+        }
+        nav.navbar.navbar-custom {
+            margin: 0;
+        }
+        span {
+            font-family:Arial, sans-serif;
+            white-space:nowrap;
+            margin : 0px;
+        }
+        .login-form h1 {
+            text-align: center;
+            color: #4d4d4d;
+            font-size: 24px;
+            padding: 0px 0 10px 0;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+
     </style>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+
 </head>
 <body>
+
+
+<nav class="navbar navbar-custom">
+    <div class="container-fluid">
+    <div class="navbar-header">
+        <a href="#" class="navbar-brand navbar-left">i-Park</a>
+    </div>
+        </div>
+
+</nav>
+
 <div class="login-form">
-    <form action="auth" method="POST">
-        <input type="text" name="username" placeholder="Όνομα Χρήστη" required>
+    <form id="log" class="form-casual" action="auth" method="POST">
+        <h1 ><span  style="color: white; "><b>Είσοδος Χρήστη!</b></span></h1>
+
+        <input  id="username" type="text" name="username" placeholder="Όνομα Χρήστη" required>
+
         <input type="password" name="password" placeholder="Κωδικός" required>
         <input type="submit">
     </form>

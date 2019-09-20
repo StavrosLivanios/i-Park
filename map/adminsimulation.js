@@ -5,6 +5,7 @@ module.exports.polsimulation =  function polsimulation(req,res) {
 
    const demandtime =req.body.time;
    var timechange = req.body.minute;
+   var minuteshour=req.body.minuteshour;
    var time = 0;
 
 
@@ -16,16 +17,20 @@ module.exports.polsimulation =  function polsimulation(req,res) {
         !req.body.time
         || isNaN(req.body.time)
         || req.body.time < 0
-        || req.body.time>23
+        || req.body.time >23
+        || req.body.minuteshour <0
+        || req.body.minuteshour >60
+       || req.body.minute <0
+       || req.body.minute >60
     ){
         const error = new Error();
         error.status = 400;
         error.message = "Bad request. Request body is malformed";
         res.json(error);
-        return;
+       res.render("errorpage400");
+       return;
     }
-    time = demandtime+(parseInt(timechange/60) );
-
+    time = demandtime+(parseInt(timechange+minuteshour/60) );
     var dbconnect = require('../db.js');
     dbconnect.query('SELECT * FROM polygon', function (err, rows, fields) {
         if (err) throw err;

@@ -20,13 +20,13 @@ module.exports.uploadFile =  function uploadFile(req,res){
 
     if (uploaded_file.name.search(".kml") === -1) {
         console.log("this is an error,you should upload a kml file");
-        res.redirect("/admin/menu/1/upload");
+        res.render("/admin/menu/1/upload");
         return;
     }
 
     kmlpop(uploaded_file, function (err, result) {
         if(err) {res.redirect("/admin/menu/1/upload");}
-
-        res.send('File uploaded!');
+        res.redirect("/admin/menu/2");
+        // res.send('File uploaded!');
     })
 };

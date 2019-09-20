@@ -13,6 +13,8 @@ module.exports.userpolsimulation =  function userpolsimulation(req,res) {
         error.status = 400;
         error.message = "Bad request. Request body is malformed";
         res.json(error);
+        res.render("errorpage400");
+
         return;
     }
 

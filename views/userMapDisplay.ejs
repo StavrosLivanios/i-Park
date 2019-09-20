@@ -1,7 +1,23 @@
 <html>
+<%include ../partials/userheader.ejs%>
+<style>
+    .map-container{
+        overflow:hidden;
+        padding-bottom:56.25%;
+        position:relative;
+        height:0;
+    }
+    .map-container iframe{
+        left:0;
+        top:0;
+        height:100%;
+        width:100%;
+        position:absolute;
+    }
+</style>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
           crossorigin=""/>
@@ -9,9 +25,6 @@
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
             integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
             crossorigin=""></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
         var markers = [] ;
@@ -177,10 +190,7 @@
     </script>
 
     <style>
-        #mapid{
-            height:100vh ;
-            width: 100vw;
-        }
+
         #button1{
             height:auto;
             width: 50%;
@@ -235,6 +245,7 @@
                     </div>
                     <div class="form-group">
                         <label for="dbscan radius">Ακτίνα</label>
+                        <br>
                         <input type="number" min="0"  placeholder="100">
                     </div>
 
@@ -265,27 +276,29 @@
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-6">
-            <!-- Trigger the modal with a button -->
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ώρα Εξομοίωσης</button>
-        </div>
-        <div class="col-sm-6">
-           <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">Εύρεση Θέσης Πάρκινγκ</button>
-        </div>
+<!--<div class="container-fluid">-->
+    <!--<div class="row">-->
+        <!--<div class="col-sm-6">-->
+            <!--&lt;!&ndash; Trigger the modal with a button &ndash;&gt;-->
+            <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ώρα Εξομοίωσης</button>-->
+        <!--</div>-->
+        <!--<div class="col-sm-6">-->
+           <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">Εύρεση Θέσης Πάρκινγκ</button>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row no-gutters`">-->
+            <!--<div id="mapid" ></div>-->
 
-    </div>
-    <div class="row no-gutters`">
-            <div id="mapid" ></div>
+    <!--</div>-->
 
-    </div>
+<!--</div>-->
 
+
+
+<div id="container">
+
+    <div id="mapid" style="width: 100%;height: 100%"></div>
 </div>
-
-
-
-
 <script >
     var mymap = L.map('mapid').setView([ 38.2597, 21.7536], 13);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicHp5Z291cmFzIiwiYSI6ImNqeWp0b3dudjAzNHIzbXQ1bDd6Y3JnZDEifQ.dXRp-_TOF_JjD_snQSZPAw', {

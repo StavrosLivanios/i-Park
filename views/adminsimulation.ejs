@@ -13,18 +13,33 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%,-50%);
+
     }
 
-    form{
+    .form1{
+        align-self:center;
         position: relative;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
+        left: 0%;
+        /*margin: 5% 40% 10%;*/
+
     }
 
-    #myText {display:inline-block;margin-right:10px; width:200px;}
-    #simClick {display:inline-block; }
-    #minutes {display:inline-block; }
+    .form2{
+        position: relative;
+        top:10%
+
+    }
+    @media screen and (max-width:767px){
+        .stats{
+            display:none;
+        }
+    }
+
+
+
+    /*#myText {display:inline-block;margin-right:10px; width:200px;}*/
+    /*#simClick {display:inline-block; }*/
+    /*#minutes {display:inline-block; }*/
 
 </style>
 <head>
@@ -39,46 +54,50 @@
                 event.preventDefault();
 
                 var minutes = parseInt(document.getElementById("min").value);
-                 totalminutes = parseInt(minutes)+parseInt(totalminutes);
+                totalminutes = parseInt(minutes)+parseInt(totalminutes);
             });
 
             $('#simulation').on("submit", function(event) {
                 event.preventDefault();
                 // get the form data
                 var minutes = document.getElementById("min").value;
-                    var x = document.getElementById("myText").value;
-                    var res = x.slice(0, 2);
-                    res=parseInt(res);
+                var x = document.getElementById("myText").value;
+                var reshour = x.slice(0, 2);
+                var resminutes = x.slice(2, 4);
 
-                    const formData = {
-                        'time':res,
-                        'minute':totalminutes
-                    };
+                reshour=parseInt(reshour);
+                resminutes=parseInt(resminutes);
+
+                const formData = {
+                    'time':reshour,
+                    'minuteshour':resminutes,
+                    'minute':totalminutes
+                };
 
 
-                    // process the form
-                    $.ajax({
-                        type: 'post',
-                        url: `http://localhost:3500/adminsimulation`,
-                        headers: {
-                            'Content-Type':'application/json'
-                        },
-                        crossDomain: true,
-                        data: JSON.stringify(formData),
-                        dataType: 'json'
+                // process the form
+                $.ajax({
+                    type: 'post',
+                    url: `http://localhost:3500/adminsimulation`,
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    crossDomain: true,
+                    data: JSON.stringify(formData),
+                    dataType: 'json'
+                })
+                    .done(function(response) {
+
+                        // log data to the console so we can see
+                        console.log(response);
+
+
+                        // here we will handle errors and validation messages
                     })
-                        .done(function(response) {
-
-                            // log data to the console so we can see
-                            console.log(response);
-
-
-                            // here we will handle errors and validation messages
-                        })
-                        .fail(function(response) {
-                            console.log("error");
-                            console.log(response);
-                        });
+                    .fail(function(response) {
+                        console.log("error");
+                        console.log(response);
+                    });
 
 
 
@@ -90,30 +109,39 @@
 </head>
 <body>
 
-<div class=" aaa  align-middle container text-center">
-<form id="simulation">
-    <div class="form-row align-items-center">
-        <div class="col-xs-2">
-            <input id="myText" class="form-control "  type="number" min="0" max="23" placeholder="23" value="">
-        </div>
-        <span class="input-group-addon">:</span>
-        <div class="col-xs-2">
-            <input type="number" id="minutes" class="form-control " min="0" max="59" placeholder="00">
-        </div>
-        <div class="col-xs-2">
-            <input id="simClick" type="submit" class="btn btn-light btn-lg  btn-block btn-outline-primary" value="Έναρξη εξομοίωσης" >
-        </div>
-    </div>
-</form>
+<div class=" container  aaa    text-center " style="  border-radius:5px ; padding: 30px ;background-color: rgba(0, 0, 0, 0.8);">
 
-<form id="minuteClick">
-    <div class="input-group">
-        <input id="min" type="number" min="1" max="60" placeholder="" value="">
-        <input id="minuteClick" type="submit" class="btn btn-light btn-lg  btn-block btn-outline-primary" value="Μεταβολή λεπτών" >
-    </div>
+    <form id="simulation">
+        <div class="row form1">
 
-</form>
+            <div  class=" justify-content-center">
+                <input  id="myText" class="form-control "  type="number" min="0" max="23" placeholder="23" value="">
+            <!--            <span class="input-group-addon">:</span> -->
+                <input  type="number" id="minutes" class="form-control " min="0" max="59" placeholder="00">
+                <input id="simClick" type="submit" class="btn btn-light btn-lg  btn-block btn-outline-primary " value="Έναρξη εξομοίωσης" >
+            </div>
+
+        </div>
+    </form>
+
+    <form  id="minuteClick">
+        <div class="row form1"  >
+
+        <div class="  justify-content-center">
+
+            <input id="min" type="number" min="1" max="60" placeholder="" value="">
+            <input id="minuteClick" type="submit" class="btn btn-light btn-lg  btn-block btn-outline-primary " value="Μεταβολή λεπτών" >
+
+        </div>
+
+        </div>
+
+    </form>
+<!--    </div>-->
 </div>
+
+
+
 </body>
 
 </html>

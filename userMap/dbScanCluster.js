@@ -19,6 +19,7 @@ module.exports.scan = function scan(req,res) {
         error.status = 400;
         error.message = "Bad request. Request body is malformed";
         res.json(error);
+        res.render("errorpage400");
         return;
     }
 
@@ -31,6 +32,7 @@ module.exports.scan = function scan(req,res) {
         error.status = 400;
         error.message = "Bad request. Request body is malformed";
         res.json(error);
+        res.render("errorpage400");
         return;
     }
     if(
@@ -41,6 +43,7 @@ module.exports.scan = function scan(req,res) {
         error.status = 400;
         error.message = "Bad request. Request body is malformed";
         res.json(error);
+        res.render("errorpage400");
         return;
     }
 

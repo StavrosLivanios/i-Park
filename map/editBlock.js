@@ -18,6 +18,7 @@ module.exports.blockEdit =  function blockEdit(req,res) {
         error.status = 400;
         error.message = "Bad request. Demandtype_id id is not a number";
         res.json(error);
+        res.render("errorpage400");
         return;
     }
     else if (
