@@ -1,6 +1,7 @@
 <html>
 <%include ../partials/header.ejs%>
 <style>
+
     .map-container{
         overflow:hidden;
         padding-bottom:56.25%;
@@ -8,6 +9,7 @@
         height:0;
     }
     .map-container iframe{
+
         left:0;
         top:0;
         height:100%;
@@ -25,9 +27,6 @@
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
             integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
             crossorigin=""></script>
-
-
-
 
 
     <script>
@@ -59,7 +58,9 @@
 
                         // log data to the console so we can see
                         console.log(response);
-
+                        if (response.status==400){
+                            window.location.replace("/errorpage400");
+                        }
                         // here we will handle errors and validation messages
                     })
                     .fail(function(response) {
@@ -71,8 +72,6 @@
             });
         });
     </script>
-
-
 </head>
 <body>
 <div id="container">
@@ -107,7 +106,7 @@
                    "<form  id=\"patchForm\"> " +
 
                     "Θέσεις Πάρκινγκ:\n" +
-                    "  <input name=\"parkingslots\" type=\"text\" id=\"parkingslot\" value=\"\" >\n" +
+                    "  <input name=\"parkingslots\" type=\"number\" min=\"0\" id=\"parkingslot\" value=\"\" >\n" +
                     "  <br> " +
                         "  <input name=\"polygonId\" type=\"hidden\" value=\"" + ev.target.options.customProps.id + "\">\n"+
                     "Καμπύλη ζήτησης:" +

@@ -48,7 +48,7 @@
     <title>i-Park</title>
     <style>
         .login-form {
-            width: 300px;
+            width: 180px;
             margin: 0 auto;
             font-family: Tahoma, Geneva, sans-serif;
         }
@@ -61,14 +61,15 @@
         .login-form input[type="password"],
         .login-form input[type="text"] {
             width: 100%;
-            padding: 15px;
+            padding: 10px;
             border: 1px solid #dddddd;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             box-sizing:border-box;
         }
         .login-form input[type="submit"] {
+            border-radius: 15 px;
             width: 100%;
-            padding: 15px;
+            padding: 10px;
             background-color: #535b63;
             border: 0;
             box-sizing: border-box;
@@ -83,9 +84,10 @@
 
 
         form {
-            border-radius:5px ;
+            border-radius: 5px ;
             padding: 30px ;
             background-color: rgba(0, 0, 0, 0.8);
+
         }
 
         .navbar-custom a {
@@ -107,12 +109,20 @@
             margin : 0px;
         }
         .login-form h1 {
+            border: 0;
+            border-radius: 15px;
+            background: #285e8e;
             text-align: center;
+            line-height: 30px;
+            font-weight: 600;
             color: #4d4d4d;
             font-size: 24px;
-            padding: 0px 0 10px 0;
+            /*padding: 10px 0px 20px 0;*/
+            padding: auto;
             margin-top: 0px;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
+            margin-left: -2px;
+
         }
 
     </style>
@@ -133,9 +143,8 @@
         </div>
 
 </nav>
-
 <div class="login-form">
-    <form id="log" class="form-casual" action="auth" method="POST">
+    <form id="log" style="width: 300px" class="form-casual" action="auth" method="POST">
         <h1 ><span  style="color: white; "><b>Είσοδος Χρήστη!</b></span></h1>
 
         <input  id="username" type="text" name="username" placeholder="Όνομα Χρήστη" required>

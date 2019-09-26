@@ -91,7 +91,8 @@ module.exports.polsimulation =  function polsimulation(req,res) {
             const file = 'adminData.json' ;
 
             jsonfile.writeFile(file, leafPolygons, function (err) {
-                if (err) console.error(err)
+                if (err) console.log(err)
+
             });
             if (req.session.loggedin) {
                 res.json(leafPolygons);
@@ -101,7 +102,9 @@ module.exports.polsimulation =  function polsimulation(req,res) {
                 res.send('Please login to view this page!');
                 res.end();
 
-            }        });
+            }
+
+        });
 
 
 });

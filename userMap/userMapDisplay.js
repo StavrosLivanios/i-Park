@@ -26,14 +26,14 @@ module.exports.userDisplayMap =  function userDisplayMap(req,res) {
 
                 })
                 .catch(function (error) {
-                    res.render("failed"); //todo: error page
+                    res.render("failedpage"); //todo: error page
                 });
 
              res.render("userMapDisplay", {leafPolygons: response.data});
 
         })
         .catch(function (error) {
-            res.render("failed"); //todo: error page
+            res.render("failedpage"); //todo: error page
         });
 
 };

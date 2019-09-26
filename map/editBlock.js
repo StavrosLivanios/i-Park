@@ -35,9 +35,8 @@ module.exports.blockEdit =  function blockEdit(req,res) {
 
     //validate request body
     if(
-        !req.body.parkslots
-        || isNaN(req.body.parkslots)
-        || req.body.parkslots < 0
+        isNaN(req.body.parkslots)
+        ||req.body.parkslots < 0
     ){
         const error = new Error();
         error.status = 400;
@@ -56,7 +55,7 @@ module.exports.blockEdit =  function blockEdit(req,res) {
             res.json(e);
             return;
         }
-
+if (req.body.parkslots){
         const sql = "UPDATE polygon SET parkslots = ?, demandtype_id= ? WHERE id = ? ";
         dbconnect.query(sql, [req.body.parkslots,req.body.demandtype_id, parid], function (err, result) {
             if (err) throw err;
@@ -75,5 +74,27 @@ module.exports.blockEdit =  function blockEdit(req,res) {
 
             });
         });
+        }
+else if (!req.body.parkslots) {
+    const sql = "UPDATE polygon SET  demandtype_id= ? WHERE id = ? ";
+    dbconnect.query(sql, [req.body.demandtype_id, parid], function (err, result) {
+        if (err) throw err;
+
+        if(result.affectedRows !== 1){
+            const e = new Error();
+            e.status= 500;
+            e.message = "Server error";
+            res.json(e);
+            return;
+        }
+
+        const selectSqlQuery = "select * from polygon where id = ?";
+        dbconnect.query(selectSqlQuery, parid, function (err, result) {
+            if(err) throw err;
+
+        });
+    });
+
+}
     });
 };

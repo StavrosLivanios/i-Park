@@ -31,7 +31,7 @@ module.exports.parserdb =  function parserdb(parsedXmlFile, callback) {
     //validate that parsedXmlFile is of type: {Document: {Folder: [] }  }
     const polygonsToInsert = [];
 
-    parsedXmlFile.Document.Folder.forEach(function(folder) {
+    parsedXmlFile.kml.Document[0].Folder.forEach(function(folder) {
         if(!folder.Placemark){
             return;
         }

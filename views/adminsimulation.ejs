@@ -9,31 +9,92 @@
 
 
     .aaa{
-        position: absolute;
+       position: absolute;
+
         top: 50%;
-        left: 50%;
+        left: 50% ;
         transform: translate(-50%,-50%);
 
-    }
-
-    .form1{
-        align-self:center;
-        position: relative;
-        left: 0%;
-        /*margin: 5% 40% 10%;*/
 
     }
 
-    .form2{
-        position: relative;
-        top:10%
+    form{
+
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 30px;
+        width:  300px;
+        margin: 0 auto;
+        border-radius: 5px;
+
 
     }
-    @media screen and (max-width:767px){
-        .stats{
-            display:none;
-        }
+
+
+    /*@media screen and (max-width:767px){*/
+    /*    .stats{*/
+    /*        display:none;*/
+    /*    }*/
+    /*}*/
+     .input1{
+         width: 100%;
+         padding: 10px;
+         border: 1px solid #dddddd;
+         margin-bottom: 15px;
+         box-sizing:border-box;
+
     }
+     .input2[type="submit"] {
+         margin-bottom: 15px;
+
+        width: 100%;
+        padding: 10px;
+        background-color: #535b63;
+        border: 0;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+        h1 {
+            border: 0;
+            border-radius: 15px;
+            background: #285e8e;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 600;
+            color: white;
+            font-size: 24px;
+            padding: 20px 0px 20px 0;
+            padding: auto;
+            margin-top: -5px;
+            margin-bottom: 25px;
+            margin-left: -2px;
+            text-align: center;
+       }
+
+    span {
+            font-family:Arial, sans-serif;
+            white-space:nowrap;
+            margin : 0px;
+         }
+
+     .input3{
+              width: 118px;
+              padding: 10px;
+              border: 1px solid #dddddd;
+              box-sizing:border-box;
+
+
+     }
+
+      label
+      {
+          font-size: 16px;
+          color: white;
+
+
+      }
 
 
 
@@ -91,6 +152,8 @@
                         // log data to the console so we can see
                         console.log(response);
 
+                        window.location.href="/admin/menu/2" ;
+
 
                         // here we will handle errors and validation messages
                     })
@@ -109,32 +172,24 @@
 </head>
 <body>
 
-<div class=" container  aaa    text-center " style="  border-radius:5px ; padding: 30px ;background-color: rgba(0, 0, 0, 0.8);">
+<div class=" container aaa ">
 
-    <form id="simulation">
-        <div class="row form1">
+    <form id="simulation" >
+                <h1><span>Εξομοίωση</span></h1>
 
-            <div  class=" justify-content-center">
-                <input  id="myText" class="form-control "  type="number" min="0" max="23" placeholder="23" value="">
+                <label for="forma">Επιλογή Ώρας:</label>
+                <div id="forma" class="form-group "  style="float: center; margin-bottom: 1px;">
+                <input  id="myText"  class="input3"  type="number" min="0" max="23" placeholder="23" value="">
             <!--            <span class="input-group-addon">:</span> -->
-                <input  type="number" id="minutes" class="form-control " min="0" max="59" placeholder="00">
-                <input id="simClick" type="submit" class="btn btn-light btn-lg  btn-block btn-outline-primary " value="Έναρξη εξομοίωσης" >
-            </div>
+                <input  type="number"  class="input3" id="minutes"   min="0" max="59" placeholder="00">
+                </div>
 
-        </div>
-    </form>
+                <input id="simClick" class="input2" type="submit" value="Έναρξη εξομοίωσης" style="margin-bottom: 20px;" >
 
-    <form  id="minuteClick">
-        <div class="row form1"  >
+                <label for="min">Μεταβολή Λεπτών:</label>
+                <input id="min" type="number"  class="form-control input1"  min="1" max="60" placeholder="" value="" style="margin-bottom: 1px;">
+                <input id="minuteClick" type="submit"  class="input2" value="Εφαρμογή" >
 
-        <div class="  justify-content-center">
-
-            <input id="min" type="number" min="1" max="60" placeholder="" value="">
-            <input id="minuteClick" type="submit" class="btn btn-light btn-lg  btn-block btn-outline-primary " value="Μεταβολή λεπτών" >
-
-        </div>
-
-        </div>
 
     </form>
 <!--    </div>-->

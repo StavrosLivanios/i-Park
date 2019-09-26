@@ -3,34 +3,91 @@
 <%include ../partials/bgimage.ejs%>
 <%include ../partials/footer.ejs%>
 
+<head>
 
 <style>
+
+    h1 {
+        border: 0;
+        border-radius: 15px;
+        background: #285e8e;
+        text-align: center;
+        line-height: 30px;
+        font-weight: 600;
+        color: white;
+        font-size: 24px;
+        padding: 20px 0px 18px 0;
+        padding: auto;
+        margin-top: -30px;
+        margin-bottom: 20px;
+        margin-left: -2px;
+        text-align: center;
+    }
+
+    input[type="submit"], input[type="button"] {
+        border-radius: 15 px;
+        width: 100%;
+        padding: 10px;
+        background-color: #535b63;
+        border: 0;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-weight: bold;
+        color: #ffffff;
+    }
 
     .container{
         position relative;
     }
 
     form {
-        border-radius:5px ;
-        padding: 20px ;
+        border-radius: 5px ;
+        padding: 50px 30px 40px 30px ;
         background-color: rgba(0, 0, 0, 0.8);
+        width: 300px;
+
+
+    }
+
+    label
+    {
+        position: relative;
+        font-size: 16px;
+        color: white;
+        margin-bottom: 0 ;
+
+
+
+    }
+
+    span {
+        font-family:Arial, sans-serif;
+        white-space:nowrap;
+        margin : 0px;
     }
 
 
+
+
 </style>
+</head>
 <body >
     <div class="container centered" >
         <div class="container bg-dark" bgcolor="red">
 
+<div class="col-xs">
      <form class="form-casual" action="/admin/menu/1/upload" method="get">
-         <div class="form-group">
-         <input type="submit" class="btn btn-light btn-lg  btn-block btn-outline-primary" value="Ανέβασε αρχείο kml" />
-         </div>
-        <button type="button" class="btn btn-light btn-lg  btn-block btn-outline-primary" onclick="myFunction()">Διαγραφή</button>
+
+             <h1 style="margin-top: -30px;"><span>Διαχείριση Βάσης</span></h1>
+             <label><span>Ανέβασε αρχείο kml:<span></label>
+             <input type="submit" class="btn " style=" margin-bottom: 20px;" value="Εφαρμογή" />
+
+         <label><span>Διαγραφή Βάσης Δεδομένων:<span></label>
+        <input type="button" class="btn" onclick="myFunction()"   value="Εφαρμογή">
         </form>
         </div>
     </div>
-
+    </div>
 
 </body>
 <script>
