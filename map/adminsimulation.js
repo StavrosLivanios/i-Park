@@ -1,7 +1,9 @@
 const jsonfile = require('jsonfile');
+/*                                      Συναρτηση polsimulation
+                            Σε αυτην την συναρττηση εκτελειται η εξομοιωση
+ */
 
 module.exports.polsimulation =  function polsimulation(req,res) {
-//todo:getMinutes from simulation form and add if clause for demandtime>0 && demandime<24
 
    const demandtime =req.body.time;
    var timechange = req.body.minute;
@@ -9,31 +11,36 @@ module.exports.polsimulation =  function polsimulation(req,res) {
    var time = 0;
 
 
-   console.log(timechange);
 
-
-   //Validate req.body
+    //Ελεγχος αν  το body του request που εισηχθηκε ειναι σωστο
    if(
-        !req.body.time
-        || isNaN(req.body.time)
+         isNaN(req.body.time)
         || req.body.time < 0
         || req.body.time >23
         || req.body.minuteshour <0
         || req.body.minuteshour >60
-       || req.body.minute <0
-       || req.body.minute >60
+        || req.body.minute <0
     ){
         const error = new Error();
         error.status = 400;
         error.message = "Bad request. Request body is malformed";
         res.json(error);
-       res.render("errorpage400");
-       return;
+        return;
     }
-    time = demandtime+(parseInt(timechange+minuteshour/60) );
+    time = demandtime+(parseInt((timechange+minuteshour)/60) );
+
     var dbconnect = require('../db.js');
-    dbconnect.query('SELECT * FROM polygon', function (err, rows, fields) {
+    //Εδω δημιουργειται ενα object leafpolygons που περιεχει τα στοιχεια των πολυγωνων απο την βαση
+
+    dbconnect.query('SELECT * FROM polygon', function (err, rows,result, fields) {
         if (err) throw err;
+        if(result.length === 0){
+            const e = new Error();
+            e.status= 404;
+            e.message = "Not found";
+            res.json(e);
+            return;
+        }
 
         const leafPolygons = [];
         rows.forEach(function (leafPolygon) {
@@ -57,9 +64,12 @@ module.exports.polsimulation =  function polsimulation(req,res) {
             });
 
         });
-
+        //Εδω προσκομιζουμε την τιμη της καμπυλης ζητησης για καθε πολυγωνο για την συγκεκριμενη χρονικη στιμγη
+        // και υπολογιζουμε τις ελευθερες θεσεις σταθμευσης. Eπειτα εισαγουμε το ανοτιστιχο χρωμα αναλογως το ποσοστο
+        //των θεσεων σταθμευσης του πολυγωνου και αποθηκευεται στο object leafPolygon
         dbconnect.query(' SELECT * FROM demandtype ',function (err, rows, fields) {
        if (err) throw err;
+
             const simtime ="hour"+time;
 
          leafPolygons.forEach(function (polygon,key) {
@@ -96,11 +106,11 @@ module.exports.polsimulation =  function polsimulation(req,res) {
             });
             if (req.session.loggedin) {
                 res.json(leafPolygons);
-                res.end();
+               // res.end();
 
             } else {
                 res.send('Please login to view this page!');
-                res.end();
+                //res.end();
 
             }
 

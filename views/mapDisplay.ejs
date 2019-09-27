@@ -1,5 +1,7 @@
 <html>
 <%include ../partials/header.ejs%>
+<!-- Σελιδα απεικονισης χαρτη του διαχειριστη -->
+<!-- τα δεδομενα για τον χαρτη τα λαμβανει  απο  ajax request που του επιστρεφει ενα object -->
 <style>
 
     .map-container{
@@ -35,7 +37,7 @@
             $(document).on("submit", function(event) {
                 event.preventDefault();
                 // get the form data
-                // there are many ways to get this data using jQuery (you can use the class or id also)
+
                 const formData = {
                     'parkslots': $('input[name=parkingslots]').val(),
                     'demandtype_id': $('select[name=demandtype]').val()
@@ -60,6 +62,10 @@
                         console.log(response);
                         if (response.status==400){
                             window.location.replace("/errorpage400");
+                        }else if(response.status==404){
+                            window.location.replace("/errorpage404");
+                        }else if(response.status==500){
+                            window.location.replace("/errorpage500");
                         }
                         // here we will handle errors and validation messages
                     })
@@ -121,7 +127,6 @@
         ).openOn(mymap);
 
 
-         //   alert(polygon.options.customProps.id); // ev is an event object (MouseEvent in this case)
         });
 
     })

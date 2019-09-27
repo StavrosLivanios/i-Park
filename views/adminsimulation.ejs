@@ -1,6 +1,9 @@
 <html lang = "en">
 <%include ../partials/bgimage.ejs%>
 <%include ../partials/header.ejs%>
+<%include ../partials/footer.ejs%>
+<!-- Σελίδα Εξομοίωσης, περιέχει μια φόρμα για να καθορίσει ο διαχειριστής τη χρονική στιγμή που θέλει να πραγματοποιηθεί η προσομοίωση-->
+<!-- Μόνο για τον διαχειριστή -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -29,12 +32,6 @@
 
     }
 
-
-    /*@media screen and (max-width:767px){*/
-    /*    .stats{*/
-    /*        display:none;*/
-    /*    }*/
-    /*}*/
      .input1{
          width: 100%;
          padding: 10px;
@@ -97,11 +94,6 @@
       }
 
 
-
-    /*#myText {display:inline-block;margin-right:10px; width:200px;}*/
-    /*#simClick {display:inline-block; }*/
-    /*#minutes {display:inline-block; }*/
-
 </style>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -111,10 +103,10 @@
         $(document).ready(function() {
             // process the form
             var totalminutes =0;
-            $('#minuteClick').on("submit", function(event) {
+            $('#minutesim').on("submit", function(event) {
                 event.preventDefault();
 
-                var minutes = parseInt(document.getElementById("min").value);
+                var minutes = parseInt(document.getElementById('min').value);
                 totalminutes = parseInt(minutes)+parseInt(totalminutes);
             });
 
@@ -123,8 +115,10 @@
                 // get the form data
                 var minutes = document.getElementById("min").value;
                 var x = document.getElementById("myText").value;
+                var x2 = document.getElementById("myText2").value;
+
                 var reshour = x.slice(0, 2);
-                var resminutes = x.slice(2, 4);
+                var resminutes = x2.slice(0,2);
 
                 reshour=parseInt(reshour);
                 resminutes=parseInt(resminutes);
@@ -139,7 +133,7 @@
                 // process the form
                 $.ajax({
                     type: 'post',
-                    url: `http://localhost:3500/adminsimulation`,
+                    url: `/adminsimulation`,
                     headers: {
                         'Content-Type':'application/json'
                     },
@@ -151,9 +145,14 @@
 
                         // log data to the console so we can see
                         console.log(response);
-
-                        window.location.href="/admin/menu/2" ;
-
+                        if (response.status==400){
+                            window.location.replace("/errorpage400");
+                        }else if(response.status==404) {
+                            window.location.replace("/errorpage404");
+                        }
+                        else {
+                            window.location.href="/admin/menu/2" ;
+                        }
 
                         // here we will handle errors and validation messages
                     })
@@ -174,24 +173,21 @@
 
 <div class=" container aaa ">
 
-    <form id="simulation" >
+          <form id="simulation" >
                 <h1><span>Εξομοίωση</span></h1>
-
                 <label for="forma">Επιλογή Ώρας:</label>
                 <div id="forma" class="form-group "  style="float: center; margin-bottom: 1px;">
                 <input  id="myText"  class="input3"  type="number" min="0" max="23" placeholder="23" value="">
             <!--            <span class="input-group-addon">:</span> -->
-                <input  type="number"  class="input3" id="minutes"   min="0" max="59" placeholder="00">
+                <input id="myText2"  type="number"  class="input3" id="minutes"   min="0" max="59" placeholder="00">
                 </div>
-
                 <input id="simClick" class="input2" type="submit" value="Έναρξη εξομοίωσης" style="margin-bottom: 20px;" >
-
+        </form>
+        <form id="minutesim" >
                 <label for="min">Μεταβολή Λεπτών:</label>
                 <input id="min" type="number"  class="form-control input1"  min="1" max="60" placeholder="" value="" style="margin-bottom: 1px;">
                 <input id="minuteClick" type="submit"  class="input2" value="Εφαρμογή" >
-
-
-    </form>
+        </form>
 <!--    </div>-->
 </div>
 

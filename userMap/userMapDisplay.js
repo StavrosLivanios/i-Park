@@ -1,6 +1,14 @@
 require("babel-core").transform("code");
 const polygons =  require('./usersimulation.js');
 const axios = require('axios');
+/*
+Συναρτηση userDisplayMap
+
+Eδω με axios request παιρνουμε τις πληροφοριες απο το usersimulation.js και κανουμε  render  το userMapDisplay.ejs
+περνώντας του σαν ορισμα ενα object leafPolygons που περιεχει τα πολυγωνα.
+
+ */
+
 
 module.exports.userDisplayMap =  function userDisplayMap(req,res) {
 
@@ -33,7 +41,7 @@ module.exports.userDisplayMap =  function userDisplayMap(req,res) {
 
         })
         .catch(function (error) {
-            res.render("failedpage"); //todo: error page
+           res.render("failedpage"); //todo: error page
         });
 
 };

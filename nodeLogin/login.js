@@ -3,7 +3,11 @@ var session = require('express-session');
 var path = require('path');
 const bodyParser = require('body-parser');
 
+/*       Συνάρτηση adminLogin
+   Ελέγχουμε το username και password που εισήγαγε ο διαχειριστής με τα προφίλ χρηστών στη βάση δεδομένων. Αν τα στοιχεία
+   ταιριάζουν με κάποιο προφίλ, τότε πραγματοποιείται το Login και δημιουργείται ένα session για αυτό.
 
+ */
 module.exports.adminLogin=  function adminLogin(req,res) {
     var dbconnect = require('../db.js');
 

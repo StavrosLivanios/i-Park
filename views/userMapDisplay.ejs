@@ -1,5 +1,8 @@
 <html>
 <%include ../partials/userheader.ejs%>
+<!-- Σελιδα απεικονισης χαρτη του χρηστη -->
+<!-- Ο χρήστης πατάει στο χάρτη το σημείο που επιθυμεί να παρκάρει και εμφανίζεται μία φόρμα για να συμπληρώσει τα απαράιτητα στοχεία-->
+<!--Τα δεδομενα για τον χαρτη τα λαμβανει  απο  ajax request που του επιστρεφει ενα object -->
 <style>
     .map-container{
         overflow:hidden;
@@ -88,9 +91,7 @@
                 })
                     .done(function(response) {
 
-                       // mymap.removeLayer(poly);
-                        // var poly=[];
-                        //
+
                         var count=0;
                         mymap.eachLayer(function (layer) {
                             if(count!=0) {
@@ -100,18 +101,13 @@
                         });
 
 
-                       // console.log(poly);
 
-                       // var leafPolygons = JSON.stringify(response.data) ;
-                       // console.log(response);
                         response.forEach(function (polygon) {
                             poly=L.polygon(polygon.coords, {color: polygon.color ,customProps: {...polygon}}).addTo(mymap);
 
 
                         })
 
-                        // log data to the console so we can see
-                        // console.log(response);
 
                         // here we will handle errors and validation messages
                     })
@@ -224,7 +220,6 @@
                     <input type="number" min="0" max="59" placeholder="00" style=" margin-left:-4px; width: 105px;">
                     <input id="simClick" type="submit" value="Έναρξη εξομοίωσης" style=" border-radius: 15 px; width: 80%; padding: 10px;
                      background-color: #535b63; border: 0; box-sizing: border-box; cursor: pointer; font-weight: bold;color: #ffffff; margin-left: 25px;">
-<!--                <input type="Button"  class="btn btn-default" style="color:white; margin-top:5px;" data-dismiss="modal" value="Close">-->
 
                 </form>
             </div>
@@ -278,22 +273,7 @@
     </div>
 </div>
 
-<!--<div class="container-fluid">-->
-    <!--<div class="row">-->
-        <!--<div class="col-sm-6">-->
-            <!--&lt;!&ndash; Trigger the modal with a button &ndash;&gt;-->
-            <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ώρα Εξομοίωσης</button>-->
-        <!--</div>-->
-        <!--<div class="col-sm-6">-->
-           <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">Εύρεση Θέσης Πάρκινγκ</button>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="row no-gutters`">-->
-            <!--<div id="mapid" ></div>-->
 
-    <!--</div>-->
-
-<!--</div>-->
 
 
 
@@ -345,7 +325,6 @@
     ).openOn(mymap);
 
 
-        //  alert(ev.latlng); // ev is an event object (MouseEvent in this case)
     });
 
 

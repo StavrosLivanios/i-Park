@@ -1,47 +1,14 @@
 <html>
 <%include ../partials/bgimage.ejs%>
 <%include ../partials/footer.ejs%>
-
+<!--Σε αυτην την σελιδα εχουμε δυο φορμες ωστε ο διαχειριστης να εισαγει τον κωδικο και το ονομα χρηστη του -->
+<!-- και τα στελνει με post  στο /auth οπου θα εκτελεσει το backend request-->
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<!--<script>-->
-    <!--function myFunction() {-->
-        <!--alert("Hello! I am an alert box!");-->
-    <!--}-->
 
-    <!--$(document).ready(function() {-->
-        <!--$('#log').on("submit", function(event) {-->
-            <!--event.preventDefault();-->
-            <!--$.ajax({-->
-            <!--type: 'post',-->
-                <!--url: `http://localhost:3500/login`,-->
-                <!--headers: {-->
-                <!--'Content-Type':'application/json'-->
-            <!--},-->
-            <!--crossDomain: true,-->
-                <!--data: JSON.stringify(formData),-->
-                <!--dataType: 'json'-->
-        <!--})-->
-                <!--.fail(function(response) {-->
-                        <!--if (error.responseText == 'showAlert') {-->
-                            <!--alert("Please enter correct user name and password.");-->
-                            <!--success:  (result) => {-->
-                                <!--if (result.responseText == 'showAlert') {-->
-                                    <!--alert("There was an error");-->
-                                <!--} else {-->
-                                    <!--//Do things...-->
-                                <!--}-->
-                            <!--}-->
-                        <!--}-->
-                    <!--}-->
-
-        <!--});-->
-    <!--});-->
-<!--</script>-->
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -149,8 +116,8 @@
 
         <input  id="username" type="text" name="username" placeholder="Όνομα Χρήστη" required>
 
-        <input type="password" name="password" placeholder="Κωδικός" required>
-        <input type="submit">
+        <input type="password" name="password" id="password" placeholder="Κωδικός" required>
+        <input type="submit" name="sub" value="Submit" class="page" >
     </form>
 </div>
 </body>

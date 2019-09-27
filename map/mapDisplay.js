@@ -1,6 +1,12 @@
 require("babel-core").transform("code");
 const jsonfile = require('jsonfile');
+/*    Συνάρτηση displayMap
+       Αρχικά  ελέγχει αν έχει πραγματοποιηθεί εξομοίωση(διαβάζοντας το αρχείο 'admin.json' με τη συνάρτηση readFile) ώστε
+     να κάνει render το 'mapDisplay.ejs' περνώντας ως όρισμα το object που περιέχει τα πολύγωνα. Στη περίπτωση που δεν
+     έχει πραγματοποιηθεί εξομοίωση, προβάλεται ο χάρτης με τα πολύγωνα(της βάσης δεδομένων) σε χρώμα γκρι.
+       Το diplayMap χρησιμοποιείται μόνο για τους διαχειριστές.
 
+ */
 module.exports.displayMap =  function displayMap(req,res) {
     var dbconnect = require('../db.js');
     var file = 'adminData.json';

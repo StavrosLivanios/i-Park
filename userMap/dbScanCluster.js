@@ -4,7 +4,13 @@ const axios = require('axios');
 const clustering = require('density-clustering');
 src="polygon-tools.min.js";
 
+/*
+Συναρτηση scan
 
+Σε αυτην την συναρτηση υπολογιζουμε την αποσταση καθε κεντροειδους των πολυγωνων απο το σημειο που θελει να παρκαρει ο
+χρηστης. Για αυτα που βρικονται μεσα στην ακτινα, οριζουμε τυχαια σημεια σε μεγιστη αποσταση 50 μετρων απο τα κεντροιδη
+και υπολγιζουμε τα clusters.
+ */
 module.exports.scan = function scan(req,res) {
     var dbconnect = require('../db.js');
 
@@ -48,6 +54,8 @@ module.exports.scan = function scan(req,res) {
     }
 
     const currentDate = new Date();
+    //κανουμε ενα ασυχρονο request με axios για να παρουμε τις πληροφοριες που χρειαζομαστε απο το usersimulation.js
+    // (εκει γινεται η εξομοιωση για τον χρηστη)
     axios.post("http://localhost:3500/usersimulation", {
         time: currentDate.getHours()
     })
@@ -135,11 +143,7 @@ module.exports.scan = function scan(req,res) {
 
                 center.push([geolib.getCenter(objs),{distance:distance}]);
 
-                //console.log(center);
-                // polygons.push(temppoly);
-                //for(let p=0;p<temppoly.length ; p++){
-                  // temppoly.pop();
-              // }
+
             }
 
             console.log(center);

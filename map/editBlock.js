@@ -1,4 +1,13 @@
+/*
+Συναρηση blockEdit
 
+Η συναρτηση αυτη ελενχει αν το request body καλυπτει τα κριτηρια (γραμες 16-52) τα οποια εχουμε θεσει
+                     ---------------------------------------
+και κανει update τις |- θεσεις σταθμευσης του πολυγωνου    |      που ειναι αποθηκευμενς στην βαση δεδομενων
+                     |- καμπυλη ζητησης του πολυγωνου      |
+                     ---------------------------------------
+
+ */
 module.exports.blockEdit =  function blockEdit(req,res) {
     var dbconnect = require('../db.js');
     const parid = req.params.id;
@@ -59,7 +68,6 @@ if (req.body.parkslots){
         const sql = "UPDATE polygon SET parkslots = ?, demandtype_id= ? WHERE id = ? ";
         dbconnect.query(sql, [req.body.parkslots,req.body.demandtype_id, parid], function (err, result) {
             if (err) throw err;
-
             if(result.affectedRows !== 1){
                 const e = new Error();
                 e.status= 500;

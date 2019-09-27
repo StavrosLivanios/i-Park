@@ -1,9 +1,9 @@
-//import * as connection from "mysql";
-
 require("babel-core").transform("code");
-//var db = require('./db');
 
+/*  Συνάρτηση deletedb
+   Πραγματοποιεί τη διαγραφή της βάσης δεδομένων.
 
+*/
 module.exports.deletedb =  function deletedb(req,res) {
     var dbconnect = require('../db.js');
     var fs = require('fs');
@@ -11,8 +11,11 @@ module.exports.deletedb =  function deletedb(req,res) {
         dbconnect.query("DELETE FROM polygon", function (err, result, fields) {
             // if any error while executing above query, throw error
             if (err) {
-                throw err;
-                res.render("errorpage400");
+                const error = new Error();
+                error.status = 500;
+                error.message = "Server error";
+                res.json(error);
+                return;
             }
             // if there is no error, you have the result
             console.log(result);
@@ -26,4 +29,4 @@ module.exports.deletedb =  function deletedb(req,res) {
 
     res.redirect("/admin/menu/1");
 
-}
+};

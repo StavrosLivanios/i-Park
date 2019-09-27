@@ -2,9 +2,8 @@
 <%include ../partials/header.ejs%>
 <%include ../partials/bgimage.ejs%>
 <%include ../partials/footer.ejs%>
-
-<head>
-
+<!-- Σελίδα μενού/Διαχείρηση Βάσης-->
+<!-- Μόνο για τον διαχειριστή -->
 <style>
 
     h1 {
@@ -70,6 +69,9 @@
 
 
 </style>
+
+<head>
+
 </head>
 <body >
     <div class="container centered" >
@@ -92,7 +94,8 @@
 </body>
 <script>
     function myFunction() {
-        if (confirm('Are you sure you want to delete the db rows?')) {
+        var r =confirm('Are you sure you want to delete the db rows?');
+        if (r===true) {
             window.location.replace("/delete");
         } else {
            // windows.location.replace("localhost:3500/delete");

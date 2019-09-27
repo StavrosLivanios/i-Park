@@ -2,6 +2,11 @@ require("babel-core").transform("code");
 const xml2js = require("xml2js");
 const {parserdb}  = require("./json-parser");
 
+/*  Συνάρτηση kmlpop
+
+   Κάνει parsing στο αρχείο Kml και το μετατρέπει σε Json.
+
+*/
 
 module.exports.kmlpop=  function kmlpop(upload_file, callback) {
     xml2js.parseString(upload_file.data, function (err, result) {
