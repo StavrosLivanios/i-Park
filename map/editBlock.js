@@ -74,6 +74,12 @@ if (req.body.parkslots){
                 e.message = "Server error";
                 res.json(e);
                 return;
+            }else{
+                const updatedpolygon = new Error();
+                updatedpolygon.demandpolyid= req.body.demandtype_id;
+                updatedpolygon.polyslots = req.body.parkslots;
+                res.json(updatedpolygon);
+                return;
             }
 
             const selectSqlQuery = "select * from polygon where id = ?";
@@ -82,7 +88,8 @@ if (req.body.parkslots){
 
             });
         });
-        }
+
+}
 else if (!req.body.parkslots) {
     const sql = "UPDATE polygon SET  demandtype_id= ? WHERE id = ? ";
     dbconnect.query(sql, [req.body.demandtype_id, parid], function (err, result) {
@@ -94,6 +101,12 @@ else if (!req.body.parkslots) {
             e.message = "Server error";
             res.json(e);
             return;
+        }else{
+            const updatedpolygon = new Error();
+            updatedpolygon.demandpolyid= req.body.demandtype_id;
+            updatedpolygon.polyslots = req.body.parkslots;
+            res.json(updatedpolygon);
+            return;
         }
 
         const selectSqlQuery = "select * from polygon where id = ?";
@@ -101,6 +114,7 @@ else if (!req.body.parkslots) {
             if(err) throw err;
 
         });
+
     });
 
 }

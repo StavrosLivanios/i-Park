@@ -10,7 +10,12 @@ module.exports.polsimulation =  function polsimulation(req,res) {
    var minuteshour=req.body.minuteshour;
    var time = 0;
 
-
+if (isNaN(req.body.minuteshour)){
+    minuteshour=0;
+}
+if (isNaN(timechange)) {
+    timechange=0;
+}
 
     //Ελεγχος αν  το body του request που εισηχθηκε ειναι σωστο
    if(

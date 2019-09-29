@@ -135,6 +135,48 @@
                     "blockradius":radius
                 };
 
+                const newsim= {
+                    'time':res,
+                    simconfirm:true
+                };
+
+
+                $.ajax({
+                    type: 'post',
+                    url: `/usersimulation`,
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    crossDomain: true,
+                    data: JSON.stringify(newsim),
+                    dataType: 'json'
+                })
+                    .done(function(response) {
+
+
+                        var count=0;
+                        mymap.eachLayer(function (layer) {
+                            if(count!=0) {
+                                mymap.removeLayer(layer)
+                            }
+                            count++;
+                        });
+
+
+
+                        response.forEach(function (polygon) {
+                            poly=L.polygon(polygon.coords, {color: polygon.color ,customProps: {...polygon}}).addTo(mymap);
+
+
+                        })
+
+
+                        // here we will handle errors and validation messages
+                    })
+                    .fail(function(response) {
+                        console.log("error");
+                        console.log(response);
+                    });
 
                 // process the form
                 $.ajax({

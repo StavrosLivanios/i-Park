@@ -46,10 +46,7 @@ app.use(session({
 
 //============================== BACKEND ===========================
 
-app.patch("/polygons/:id",blockEdit);//Με αυτο το route καλουμε την συναρτηση blockEdit οπου
-                                     // προερχεται απο ο αρχειο editblock.js.
-                                     // Ωστε να αλλαξουμε τις τιμες των πολυγονων  (για αυτο χρεισιμοποιουμε και
-                                     // patch request) με update στην βαση δεδομενων
+
 
 app.post("/adminsimulation", polsimulation);//Με αυτο το route καλουμε την συναρτηση polsimulation οπου
 // προερχεται απο ο αρχειο adminsimulation.js
@@ -65,6 +62,10 @@ app.post("/usersimulation", userpolsimulation);//Με αυτο το route καλ
                                                // που δινουμε σαν ορισμα στο post request
                                                // το οποιο ως αποτελεσμα επιστρεφει τα δεδομενα σαν json αρχειο χωρις
                                                // αυτο να αποθηκευεται
+app.patch("/polygons/:id",blockEdit);//Με αυτο το route καλουμε την συναρτηση blockEdit οπου
+                                     // προερχεται απο ο αρχειο editblock.js.
+                                     // Ωστε να αλλαξουμε τις τιμες των πολυγονων  (για αυτο χρεισιμοποιουμε και
+                                     // patch request) με update στην βαση δεδομενων
 
 app.post("/dbScan",scan);//Με αυτο το route καλουμε την συναρτηση scan οπου
                          // προερχεται απο ο αρχειο dbScanCluster.js

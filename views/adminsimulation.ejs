@@ -108,6 +108,47 @@
 
                 var minutes = parseInt(document.getElementById('min').value);
                 totalminutes = parseInt(minutes)+parseInt(totalminutes);
+
+                if(isNaN(reshour)){
+                    var datetime = new Date();
+                   var reshour = parseInt(datetime.getHours());
+                   var resminutes=parseInt(datetime.getMinutes());
+                }
+
+                const formData = {
+                    'time':reshour,
+                    'minuteshour':resminutes,
+                    'minute':totalminutes
+                };
+                $.ajax({
+                    type: 'post',
+                    url: `/adminsimulation`,
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    crossDomain: true,
+                    data: JSON.stringify(formData),
+                    dataType: 'json'
+                })
+                    .done(function(response) {
+
+                        // log data to the console so we can see
+                        console.log(response);
+                        if (response.status==400){
+                            window.location.replace("/errorpage400");
+                        }else if(response.status==404) {
+                            window.location.replace("/errorpage404");
+                        }
+                        else {
+                            window.location.href="/admin/menu/2" ;
+                        }
+
+                        // here we will handle errors and validation messages
+                    })
+                    .fail(function(response) {
+                        console.log("error");
+                        console.log(response);
+                    });
             });
 
             $('#simulation').on("submit", function(event) {
@@ -123,10 +164,11 @@
                 reshour=parseInt(reshour);
                 resminutes=parseInt(resminutes);
 
+
                 const formData = {
                     'time':reshour,
-                    'minuteshour':resminutes,
-                    'minute':totalminutes
+                    'minuteshour':resminutes
+                   // 'minute':totalminutes
                 };
 
 
@@ -185,7 +227,7 @@
         </form>
         <form id="minutesim" >
                 <label for="min">Μεταβολή Λεπτών:</label>
-                <input id="min" type="number"  class="form-control input1"  min="1" max="60" placeholder="" value="" style="margin-bottom: 1px;">
+                <input id="min" type="number"  class="form-control input1"  min="0"  placeholder="" value="" style="margin-bottom: 1px;">
                 <input id="minuteClick" type="submit"  class="input2" value="Εφαρμογή" >
         </form>
 <!--    </div>-->
