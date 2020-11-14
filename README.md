@@ -10,8 +10,3 @@ day he intends to park there. The map is divided in polygons that are stored in 
 database including the parking predictions for the part of the city its polygon belongs.
  The application has an admin login were the admin can edit the polygons information and
 upload or delete them. 
-
-<img src="https://github.com/StavrosLivanios/i-Park/blob/develop/gifs/ezgif.com-video-to-gif.gif" width="250" height="500"/>
-
-
-Web application created using NodeJS, ExpressJS, MySQL, HTML, CSS and JavaScript.
