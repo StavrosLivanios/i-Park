@@ -3,7 +3,7 @@ Web application that allows you to see available parking near the place you want
 The application displays a map (Leaflet API) on which the user can click any
 location and produce pins where parking would be available.
 
-![alt text](https://github.com/StavrosLivanios/i-Park/blob/develop/gifs/ezgif.com-video-to-gif%20(1).gif?raw=true)
+![alt text](https://github.com/StavrosLivanios/i-Park/blob/develop/gifs/ezgif.com-video-to-gif%20(1).gif?raw=true =250x250)
 
 Additionally, the user can input information on how far he is willing to park from the place he chose and at what time of the
 day he intends to park there. The map is divided in polygons that are stored in a MySQL
